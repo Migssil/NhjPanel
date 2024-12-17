@@ -12,7 +12,7 @@ frame.Parent = screenGui
 -- Criar um Botão
 local entrarbt = Instance.new("TextButton")
 entrarbt.Size = UDim2.new(0.3, 0, 0.15, 0)
-entrarbt.Position = UDim2.new(0, 0, 0, 0)  -- Posicionado dentro do Frame
+entrarbt.Position = UDim2.new(0.05, 0, 0.05, 0)  -- Posicionado dentro do Frame
 entrarbt.BackgroundColor3 = Color3.fromRGB(80, 80, 80)  -- Cinza meio escuro
 entrarbt.Text = "Entrar"
 entrarbt.TextSize = 20
