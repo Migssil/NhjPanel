@@ -21,12 +21,12 @@ entrarbt.Parent = frame
 
 -- Adicionar UICorner ao botão
 local uiCorner = Instance.new("UICorner")
-uiCorner.CornerRadius = UDim.new(0, 10)  -- Arredondamento em pixels
+uiCorner.CornerRadius = UDim.new(0, 20)  -- Arredondamento em pixels
 uiCorner.Parent = entrarbt
 
 -- Função executada quando o botão é pressionado
 entrarbt.MouseButton1Click:Connect(function()
     print("Botão foi pressionado!")  -- Mensagem no console
-    entrarbt.Text = "Você clicou!"  -- Mudar o texto do botão
+    destroy("entrarbt")  -- Mudar o texto do botão
     entrarbt.BackgroundColor3 = Color3.fromRGB(100, 200, 100)  -- Mudar a cor (verde claro)
 end)
