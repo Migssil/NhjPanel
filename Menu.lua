@@ -24,6 +24,10 @@ local uiCorner = Instance.new("UICorner")
 uiCorner.CornerRadius = UDim.new(0, 20)
 uiCorner.Parent = frame
 
+local uiCorner = Instance.new("UICorner")
+uiCorner.CornerRadius = UDim.new(0, 20)
+uiCorner.Parent = entrarbt
+
 -- Função executada quando o botão é pressionado
 entrarbt.MouseButton1Click:Connect(function()
     print("Botão foi pressionado!")  -- Mensagem no console
@@ -41,6 +45,11 @@ entrarbt.MouseButton1Click:Connect(function()
     -- Conectar o evento do novo botão
     HomeMenuBotao.MouseButton1Click:Connect(function()
         print("Novo botão foi pressionado!")
+
+        local uiCorner = Instance.new("UICorner")
+        uiCorner.CornerRadius = UDim.new(0, 20)
+        uiCorner.Parent = HomeMenuBotao
+                
         HomeMenuBotao:Destroy()
     end)
 
