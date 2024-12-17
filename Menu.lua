@@ -17,7 +17,7 @@ entrarbt.BackgroundColor3 = Color3.fromRGB(80, 80, 80)  -- Cinza meio escuro
 entrarbt.Text = "Entrar"  -- Texto no botão
 entrarbt.TextSize = 20  -- Tamanho do texto
 entrarbt.TextColor3 = Color3.fromRGB(255, 255, 255)  -- Cor branca para o texto
-entrarbt.Parent = frame
+entrarbt.Parent = screeng
 
 -- Adicionar UICorner ao botão
 local uiCorner = Instance.new("UICorner")
