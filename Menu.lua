@@ -35,7 +35,7 @@ entrarbt.MouseButton1Click:Connect(function()
     -- Criar o novo botão
     local HomeMenuBotao = Instance.new("TextButton")  -- Parêntese corrigido
     HomeMenuBotao.Size = UDim2.new(0.3, 0, 0.15, 0)
-    HomeMenuBotao.Position = UDim2.new(0.1, 0, 0.1, 0)  -- Posicionado dentro do Frame
+    HomeMenuBotao.Position = UDim2.new(0, 0, 0, 0)  -- Posicionado dentro do Frame
     HomeMenuBotao.BackgroundColor3 = Color3.fromRGB(50, 50, 50)  -- Cinza mais escuro
     HomeMenuBotao.Text = "Home🏠"  -- Texto no botão
     HomeMenuBotao.TextSize = 20  -- Tamanho do texto
