@@ -22,22 +22,28 @@ entrarbt.Parent = frame
 -- Adicionar UICorner ao botão
 local uiCorner = Instance.new("UICorner")
 uiCorner.CornerRadius = UDim.new(0, 20)
-uiCorner.Parent = entrarbt
+uiCorner.Parent = frame
 
 -- Função executada quando o botão é pressionado
 entrarbt.MouseButton1Click:Connect(function()
     print("Botão foi pressionado!")  -- Mensagem no console
 
-    -- Criar o novo botão antes de destruir o atual
+    -- Criar o novo botão
     local HomeMenuBotao = Instance.new("TextButton")  -- Parêntese corrigido
     HomeMenuBotao.Size = UDim2.new(0.3, 0, 0.15, 0)
     HomeMenuBotao.Position = UDim2.new(0, 0, 0, 0)  -- Posicionado dentro do Frame
     HomeMenuBotao.BackgroundColor3 = Color3.fromRGB(50, 50, 50)  -- Cinza mais escuro
-    HomeMenuBotao.Text = "Home"  -- Texto no botão
+    HomeMenuBotao.Text = "Entrar"  -- Texto no botão
     HomeMenuBotao.TextSize = 20  -- Tamanho do texto
     HomeMenuBotao.TextColor3 = Color3.fromRGB(255, 255, 255)  -- Cor branca para o texto
     HomeMenuBotao.Parent = frame
 
-    -- Agora destrói o botão antigo
+    -- Conectar o evento do novo botão
+    HomeMenuBotao.MouseButton1Click:Connect(function()
+        print("Novo botão foi pressionado!")
+        HomeMenuBotao:Destroy()
+    end)
+
+    -- Agora destrua o botão original
     entrarbt:Destroy()
 end)
