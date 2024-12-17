@@ -20,11 +20,11 @@ entrarbt.TextColor3 = Color3.fromRGB(255, 255, 255)
 entrarbt.Parent = frame
 
 -- Adicionar UICorner ao botão
-local uiCorner = Instance.new("UICorner")
+local uiCornerframe = Instance.new("UICorner")
 uiCorner.CornerRadius = UDim.new(0, 20)
 uiCorner.Parent = frame
 
-local uiCorner = Instance.new("UICorner")
+local uiCornerentrar = Instance.new("UICorner")
 uiCorner.CornerRadius = UDim.new(0, 20)
 uiCorner.Parent = entrarbt
 
@@ -46,7 +46,7 @@ entrarbt.MouseButton1Click:Connect(function()
     HomeMenuBotao.MouseButton1Click:Connect(function()
         print("Novo botão foi pressionado!")
 
-        local uiCorner = Instance.new("UICorner")
+        local uiCornerHomeMenuBotao = Instance.new("UICorner")
         uiCorner.CornerRadius = UDim.new(0, 20)
         uiCorner.Parent = HomeMenuBotao
                 
