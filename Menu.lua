@@ -26,7 +26,7 @@ uiCorner.Parent = entrarbt
 
 -- Função executada quando o botão é pressionado
 entrarbt.MouseButton1Click:Connect(function()
-    print("Botão foi pressionado!")  -- Mensagem no console
-    entrarbt:Destroy()  -- Mudar o texto do botão
-    entrarbt.BackgroundColor3 = Color3.fromRGB(100, 200, 100)  -- Mudar a cor (verde claro)
+    print("Botão foi pressionado!")  -- Mensagem no console  -- Mudar o texto do botão
+    entrarbt.BackgroundColor3 = Color3.fromRGB(100, 200, 100)  -- Mudar a cor (verde claro).
+    entrarbt:Destroy()
 end)
