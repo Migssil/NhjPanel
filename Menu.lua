@@ -3,121 +3,121 @@ local player = game.Players.LocalPlayer
 local screenGui = Instance.new("ScreenGui")
 screenGui.Parent = player:WaitForChild("PlayerGui")
 
--- Tabela para armazenar os scripts adicionados
-local scriptsTable = {}
+local scriptsTable = {} -- Armazena os scripts adicionados
 
 -- Função para criar Labels
-local function createLabel(parent, text, size, position)
+local function createLabel(parent, text, size, position, textSize)
     local label = Instance.new("TextLabel")
     label.Size = size
     label.Position = position
     label.BackgroundTransparency = 1
     label.Text = text
-    label.TextSize = 16
+    label.TextSize = textSize or 16
     label.TextColor3 = Color3.fromRGB(255, 255, 255)
+    label.Font = Enum.Font.SourceSans
     label.Parent = parent
     return label
 end
 
--- Função para criar um botão
+-- Função para criar Botões
 local function createButton(parent, text, size, position, callback)
     local button = Instance.new("TextButton")
     button.Size = size
     button.Position = position
-    button.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
+    button.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
     button.Text = text
     button.TextSize = 16
     button.TextColor3 = Color3.fromRGB(255, 255, 255)
+    button.Font = Enum.Font.SourceSans
+    button.BorderSizePixel = 0
     button.Parent = parent
     button.MouseButton1Click:Connect(callback)
     return button
 end
 
--- Criar o Frame principal (aumentado)
+-- Criar o Frame principal
 local mainFrame = Instance.new("Frame")
-mainFrame.Size = UDim2.new(0.8, 0, 0.8, 0) -- Aumentado para 80% da tela
-mainFrame.Position = UDim2.new(0.1, 0, 0.1, 0) -- Centralizado
-mainFrame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+mainFrame.Size = UDim2.new(0.7, 0, 0.7, 0)
+mainFrame.Position = UDim2.new(0.15, 0, 0.15, 0)
+mainFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
 mainFrame.BorderSizePixel = 0
 mainFrame.Parent = screenGui
 
--- Criar título
-local title = createLabel(mainFrame, "NHJ hub", UDim2.new(1, 0, 0.1, 0), UDim2.new(0, 0, 0, 0))
-title.TextSize = 36
-title.TextColor3 = Color3.fromRGB(255, 0, 0)
+-- Título
+createLabel(mainFrame, "NHJ Hub", UDim2.new(1, 0, 0.1, 0), UDim2.new(0, 0, 0, 0), 36)
 
 -- Botões de navegação
-local menuButton = createButton(mainFrame, "Menu", UDim2.new(0.2, 0, 0.1, 0), UDim2.new(0.05, 0, 0.15, 0), function()
-    print("Menu selecionado")
-end)
+local currentTab = "Menu"
 
-local scriptBoxButton = createButton(mainFrame, "Script Box", UDim2.new(0.2, 0, 0.1, 0), UDim2.new(0.05, 0, 0.3, 0), function()
-    print("Script Box selecionado")
-    showScripts()
-end)
+local contentFrame = Instance.new("Frame")
+contentFrame.Size = UDim2.new(0.8, 0, 0.8, 0)
+contentFrame.Position = UDim2.new(0.1, 0, 0.1, 0)
+contentFrame.BackgroundTransparency = 1
+contentFrame.Parent = mainFrame
 
--- Função para mostrar scripts adicionados
-local function showScripts()
-    for _, v in pairs(mainFrame:GetChildren()) do
-        if v.Name == "ScriptEntry" then
-            v:Destroy() -- Limpar a área
-        end
-    end
-
-    for i, scriptInfo in pairs(scriptsTable) do
-        local scriptLabel = createLabel(mainFrame, scriptInfo.name, UDim2.new(0.6, 0, 0.05, 0), UDim2.new(0.3, 0, 0.15 + (i * 0.06), 0))
-        scriptLabel.Name = "ScriptEntry"
+local function clearContent()
+    for _, child in pairs(contentFrame:GetChildren()) do
+        child:Destroy()
     end
 end
 
--- Botão de fechar
-local closeButton = createButton(mainFrame, "X", UDim2.new(0.1, 0, 0.1, 0), UDim2.new(0.85, 0, 0.01, 0), function()
+local function showMenu()
+    clearContent()
+    createLabel(contentFrame, "Bem-vindo ao Menu!", UDim2.new(1, 0, 0.1, 0), UDim2.new(0, 0, 0, 0), 20)
+end
+
+local function showScriptBox()
+    clearContent()
+    local yOffset = 0
+    for i, script in pairs(scriptsTable) do
+        createButton(contentFrame, script.name, UDim2.new(0.9, 0, 0.1, 0), UDim2.new(0.05, 0, yOffset, 0), function()
+            loadstring(script.code)() -- Executar o script
+        end)
+        yOffset = yOffset + 0.12
+    end
+
+    createButton(contentFrame, "+ Adicionar Script", UDim2.new(0.9, 0, 0.1, 0), UDim2.new(0.05, 0, yOffset, 0), function()
+        showAddScript()
+    end)
+end
+
+local function showAddScript()
+    clearContent()
+
+    createLabel(contentFrame, "Adicionar Script", UDim2.new(1, 0, 0.1, 0), UDim2.new(0, 0, 0, 0), 24)
+    createLabel(contentFrame, "Nome:", UDim2.new(0.2, 0, 0.05, 0), UDim2.new(0.05, 0, 0.1, 0))
+    local nameBox = Instance.new("TextBox")
+    nameBox.Size = UDim2.new(0.7, 0, 0.05, 0)
+    nameBox.Position = UDim2.new(0.25, 0, 0.1, 0)
+    nameBox.Parent = contentFrame
+
+    createLabel(contentFrame, "Script:", UDim2.new(0.2, 0, 0.05, 0), UDim2.new(0.05, 0, 0.2, 0))
+    local scriptBox = Instance.new("TextBox")
+    scriptBox.Size = UDim2.new(0.7, 0, 0.4, 0)
+    scriptBox.Position = UDim2.new(0.25, 0, 0.2, 0)
+    scriptBox.MultiLine = true
+    scriptBox.Parent = contentFrame
+
+    createButton(contentFrame, "Salvar", UDim2.new(0.3, 0, 0.1, 0), UDim2.new(0.35, 0, 0.65, 0), function()
+        table.insert(scriptsTable, { name = nameBox.Text, code = scriptBox.Text })
+        showScriptBox()
+    end)
+end
+
+-- Botões de navegação principais
+createButton(mainFrame, "Menu", UDim2.new(0.2, 0, 0.1, 0), UDim2.new(0, 0, 0.1, 0), function()
+    currentTab = "Menu"
+    showMenu()
+end)
+
+createButton(mainFrame, "Script Box", UDim2.new(0.2, 0, 0.1, 0), UDim2.new(0.25, 0, 0.1, 0), function()
+    currentTab = "ScriptBox"
+    showScriptBox()
+end)
+
+createButton(mainFrame, "Fechar", UDim2.new(0.2, 0, 0.1, 0), UDim2.new(0.75, 0, 0.1, 0), function()
     screenGui:Destroy()
 end)
-closeButton.TextColor3 = Color3.fromRGB(255, 0, 0)
 
--- Interface para adicionar scripts
-local addScriptFrame = Instance.new("Frame")
-addScriptFrame.Size = UDim2.new(0.6, 0, 0.6, 0)
-addScriptFrame.Position = UDim2.new(0.2, 0, 0.2, 0)
-addScriptFrame.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-addScriptFrame.BorderSizePixel = 0
-addScriptFrame.Visible = false
-addScriptFrame.Parent = mainFrame
-
--- Labels e campos de texto
-createLabel(addScriptFrame, "Adicionar Script", UDim2.new(1, 0, 0.1, 0), UDim2.new(0, 0, 0, 0)).TextSize = 24
-createLabel(addScriptFrame, "Nome:", UDim2.new(0.2, 0, 0.1, 0), UDim2.new(0.05, 0, 0.15, 0))
-local nameBox = Instance.new("TextBox")
-nameBox.Size = UDim2.new(0.7, 0, 0.1, 0)
-nameBox.Position = UDim2.new(0.25, 0, 0.15, 0)
-nameBox.Parent = addScriptFrame
-
-createLabel(addScriptFrame, "Script:", UDim2.new(0.2, 0, 0.1, 0), UDim2.new(0.05, 0, 0.3, 0))
-local scriptBox = Instance.new("TextBox")
-scriptBox.Size = UDim2.new(0.7, 0, 0.2, 0)
-scriptBox.Position = UDim2.new(0.25, 0, 0.3, 0)
-scriptBox.Parent = addScriptFrame
-scriptBox.MultiLine = true
-
-createLabel(addScriptFrame, "Descrição:", UDim2.new(0.2, 0, 0.1, 0), UDim2.new(0.05, 0, 0.55, 0))
-local descBox = Instance.new("TextBox")
-descBox.Size = UDim2.new(0.7, 0, 0.1, 0)
-descBox.Position = UDim2.new(0.25, 0, 0.55, 0)
-descBox.Parent = addScriptFrame
-
--- Botão para confirmar adição
-local confirmButton = createButton(addScriptFrame, "Adicionar", UDim2.new(0.3, 0, 0.1, 0), UDim2.new(0.35, 0, 0.75, 0), function()
-    table.insert(scriptsTable, {
-        name = nameBox.Text,
-        script = scriptBox.Text,
-        description = descBox.Text
-    })
-    addScriptFrame.Visible = false
-    showScripts()
-end)
-
--- Botão para abrir interface de adicionar scripts
-local addScriptButton = createButton(mainFrame, "+", UDim2.new(0.1, 0, 0.1, 0), UDim2.new(0.05, 0, 0.45, 0), function()
-    addScriptFrame.Visible = true
-end)
+-- Mostrar o menu inicialmente
+showMenu()
