@@ -45,7 +45,6 @@ entrarbt.MouseButton1Click:Connect(function()
     -- Conectar o evento do novo botão
     HomeMenuBotao.MouseButton1Click:Connect(function()
         game.Players.LocalPlayer:Kick("lol")
-end)
 
         local uiCornerHomeMenuBotao = Instance.new("UICorner")
         uiCorner.CornerRadius = UDim.new(0, 20)
